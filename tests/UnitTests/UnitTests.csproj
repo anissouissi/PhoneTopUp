@@ -30,4 +30,8 @@
     <ProjectReference Include="..\..\src\Services\BankAccount\BankAccount.Application\BankAccount.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services/TopUp/" />
+  </ItemGroup>
+
 </Project>

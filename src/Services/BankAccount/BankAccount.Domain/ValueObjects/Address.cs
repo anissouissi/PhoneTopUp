@@ -38,6 +38,10 @@ public record Address
         {
             throw new ValidationException(ValidationMessages.ZipCodeEmpty);
         }
+        if (zipCode.Length > 5)
+        {
+            throw new ValidationException(ValidationMessages.ZipCodeInvalid);
+        }
 
         return new Address(addressLine, country, state, zipCode);
     }

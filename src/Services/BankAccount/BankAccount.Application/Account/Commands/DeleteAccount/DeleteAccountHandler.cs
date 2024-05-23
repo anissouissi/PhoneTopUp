@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks;
 using BankAccount.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankAccount.Application;
 public class DeleteAccountHandler(IApplicationDbContext dbContext)
@@ -7,9 +8,9 @@ public class DeleteAccountHandler(IApplicationDbContext dbContext)
 {
     public async Task<DeleteAccountResult> Handle(DeleteAccountCommand command, CancellationToken cancellationToken)
     {
-        var accountId = command.AccountId;
+        var accountId = AccountId.From(command.AccountId);
         var account = await dbContext.Accounts
-            .FindAsync([AccountId.From(accountId)], cancellationToken: cancellationToken);
+            .FirstOrDefaultAsync(a => a.Id == accountId, cancellationToken: cancellationToken);
 
         if (account is null)
         {

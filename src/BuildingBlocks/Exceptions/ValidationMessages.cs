@@ -16,6 +16,7 @@ public static class ValidationMessages
     public const string CountryEmpty = "Country can not be empty.";
     public const string StateEmpty = "State can not be empty.";
     public const string ZipCodeEmpty = "Zip code can not be empty.";
+    public const string ZipCodeInvalid = "Zip code is not valid.";
     public const string EmailEmpty = "Email can not be empty.";
     public const string EmailInvalid = "Email is not valid.";
     public const string PhoneEmpty = "Phone can not be empty.";
