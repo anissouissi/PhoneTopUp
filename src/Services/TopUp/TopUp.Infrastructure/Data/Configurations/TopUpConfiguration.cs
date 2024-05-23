@@ -19,7 +19,13 @@ public class TopUpConfiguration : IEntityTypeConfiguration<Domain.TopUp>
           .HasForeignKey(t => t.UserId)
           .IsRequired();
 
-        builder.Property(b => b.Amount).IsRequired();
+        builder.ComplexProperty(b => b.Amount, amountBuilder =>
+            {
+                amountBuilder.Property(n => n.Value)
+                    .HasColumnName(nameof(Domain.TopUp.Amount))
+                    .IsRequired();
+            });
+
         builder.Property(b => b.Fee);
     }
 }

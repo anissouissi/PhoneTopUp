@@ -33,8 +33,15 @@ public class TopUpBeneficiaryHandler(IApplicationDbContext dbContext, BankAccoun
             throw new BeneficiaryNotFoundException(command.TopUpBeneficiary.BeneficiaryId);
         }
 
+        var topUpAmount = TopUpAmount.FromValue(command.TopUpBeneficiary.Amount);
+
+        if (topUpAmount is null)
+        {
+            throw new AmountNotValidException($"{command.TopUpBeneficiary.Amount} is not a valid amount");
+        }
+
         // add top up
-        user.AddTopUp(beneficiaryId, command.TopUpBeneficiary.Amount, command.TopUpBeneficiary.Fee);
+        user.AddTopUp(beneficiaryId, topUpAmount, command.TopUpBeneficiary.Fee);
 
         // try to debit bank account before saving changes
         await bankAccountServiceHttpClient.DebitAccount(

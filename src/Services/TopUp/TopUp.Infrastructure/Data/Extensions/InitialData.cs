@@ -20,24 +20,24 @@ internal class InitialData
                             BeneficiaryNickname.From("B1"),
                             Phone.From("+971521000001"),
                             UserId.From(new Guid("58c49479-ec65-4de2-86e7-033c546291aa")));
-            beneficiary1.AddTopUp(10, 1);
-            beneficiary1.AddTopUp(20, 1);
-            beneficiary1.AddTopUp(75, 1);
+            beneficiary1.AddTopUp(TopUpAmount.AED10, 1);
+            beneficiary1.AddTopUp(TopUpAmount.AED20, 1);
+            beneficiary1.AddTopUp(TopUpAmount.AED75, 1);
 
             var beneficiary2 = Beneficiary.Create(
                             BeneficiaryId.From(Guid.NewGuid()),
                             BeneficiaryNickname.From("B2"),
                             Phone.From("+971521000002"),
                             UserId.From(new Guid("58c49479-ec65-4de2-86e7-033c546291aa")));
-            beneficiary2.AddTopUp(10, 1);
-            beneficiary2.AddTopUp(75, 1);
+            beneficiary2.AddTopUp(TopUpAmount.AED10, 1);
+            beneficiary2.AddTopUp(TopUpAmount.AED75, 1);
 
             var beneficiary3 = Beneficiary.Create(
                             BeneficiaryId.From(Guid.NewGuid()),
                             BeneficiaryNickname.From("B3"),
                             Phone.From("+971521000003"),
                             UserId.From(new Guid("189dc8dc-990f-48e0-a37b-e6f2b60b9d7d")));
-            beneficiary3.AddTopUp(5, 1);
+            beneficiary3.AddTopUp(TopUpAmount.AED5, 1);
 
             return [beneficiary1, beneficiary2, beneficiary3];
         }

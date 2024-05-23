@@ -79,9 +79,6 @@ namespace TopUp.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
                     b.Property<Guid>("BeneficiaryId")
                         .HasColumnType("uuid");
 
@@ -107,6 +104,19 @@ namespace TopUp.Infrastructure.Migrations
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
+
+                    b.ComplexProperty<Dictionary<string, object>>("Amount", "TopUp.Domain.TopUp.Amount#TopUpAmount", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
+                                .HasColumnName("Amount");
+                        });
 
                     b.HasKey("Id");
 

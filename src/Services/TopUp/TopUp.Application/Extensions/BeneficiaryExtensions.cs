@@ -10,7 +10,7 @@ public static class BeneficiaryExtensions
             UserId: beneficiary.UserId.Value,
             BeneficiaryNickname: beneficiary.Nickname.Value,
             Phone: beneficiary.Phone.Value,
-            TopUps: beneficiary.TopUps.Select(t => new TopUpDto(t.BeneficiaryId.Value, t.Amount, t.Fee)).ToList()
+            TopUps: beneficiary.TopUps.Select(t => new TopUpDto(t.BeneficiaryId.Value, t.Amount.Value, t.Fee)).ToList()
         ));
     }
 
@@ -26,7 +26,7 @@ public static class BeneficiaryExtensions
                     UserId: beneficiary.UserId.Value,
                     BeneficiaryNickname: beneficiary.Nickname.Value,
                     Phone: beneficiary.Phone.Value,
-                    TopUps: beneficiary.TopUps.Select(t => new TopUpDto(t.BeneficiaryId.Value, t.Amount, t.Fee)).ToList()
+                    TopUps: beneficiary.TopUps.Select(t => new TopUpDto(t.BeneficiaryId.Value, t.Amount.Value, t.Fee)).ToList()
                 );
     }
 }

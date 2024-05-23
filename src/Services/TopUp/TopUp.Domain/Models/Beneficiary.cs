@@ -11,7 +11,7 @@ public class Beneficiary : Aggregate<BeneficiaryId>
     public IReadOnlyList<TopUp> TopUps => _topUps.AsReadOnly();
     public decimal TotalTopUp
     {
-        get => TopUps.Sum(t => t.Amount);
+        get => TopUps.Sum(t => t.Amount.Value);
     }
     public decimal CurrentTotalTopUpPerMonth
     {
@@ -24,7 +24,7 @@ public class Beneficiary : Aggregate<BeneficiaryId>
 
             var lastTopUpDate = _topUps.OrderByDescending(t => t.CreatedAt).First().CreatedAt;
             var lastMonthTopUps = _topUps.Where(t => t.CreatedAt > lastTopUpDate.GetValueOrDefault().AddDays(-30));
-            return lastMonthTopUps.Sum(t => t.Amount);
+            return lastMonthTopUps.Sum(t => t.Amount.Value);
         }
     }
 
@@ -52,9 +52,9 @@ public class Beneficiary : Aggregate<BeneficiaryId>
         AddDomainEvent(new BeneficiaryUpdatedEvent(this));
     }
 
-    public void AddTopUp(decimal amount, decimal fee)
+    public void AddTopUp(TopUpAmount amount, decimal fee)
     {
-        if (amount <= 0)
+        if (amount.Value <= 0)
         {
             throw new ValidationException(ValidationMessages.AmountNotPositive);
         }
@@ -63,7 +63,7 @@ public class Beneficiary : Aggregate<BeneficiaryId>
             throw new ValidationException(ValidationMessages.AmountNotPositive);
         }
 
-        var topUp = new TopUp(UserId, Id, amount, fee);
+        var topUp = TopUp.Create(UserId, Id, amount, fee);
         _topUps.Add(topUp);
     }
 

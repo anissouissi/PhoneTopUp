@@ -43,7 +43,7 @@ public class User : Aggregate<UserId>
         }
     }
 
-    public void AddTopUp(BeneficiaryId beneficiaryId, decimal amount, decimal fee)
+    public void AddTopUp(BeneficiaryId beneficiaryId, TopUpAmount amount, decimal fee)
     {
         var beneficiary = _beneficiaries.FirstOrDefault(b => b.Id == beneficiaryId);
 
@@ -53,7 +53,7 @@ public class User : Aggregate<UserId>
         }
 
         var beneficiariesCurrentTotalTopUpPerMonth = _beneficiaries.Sum(b => b.CurrentTotalTopUpPerMonth);
-        if (beneficiariesCurrentTotalTopUpPerMonth + amount > DomainConstants.UserMaxAllowedTopUpPerMonth)
+        if (beneficiariesCurrentTotalTopUpPerMonth + amount.Value > DomainConstants.UserMaxAllowedTopUpPerMonth)
         {
             throw new DomainException(string.Format(DomainExceptionMessages.MaxAllowedTopUpPerMonth,
                     DomainConstants.UserMaxAllowedTopUpPerMonth));
@@ -63,7 +63,7 @@ public class User : Aggregate<UserId>
                 DomainConstants.VerifiedUserMaxAllowedTopUpPerMonthPerBeneficiary :
                 DomainConstants.NotVerifiedUserMaxAllowedTopUpPerMonthPerBeneficiary;
 
-        if (beneficiary.CurrentTotalTopUpPerMonth + amount > userMaxAllowedTopUpPerMonthPerBeneficiary)
+        if (beneficiary.CurrentTotalTopUpPerMonth + amount.Value > userMaxAllowedTopUpPerMonthPerBeneficiary)
         {
             throw new DomainException(string.Format(DomainExceptionMessages.MaxAllowedTopUpPerMonthPerBeneficiary,
                 userMaxAllowedTopUpPerMonthPerBeneficiary));
