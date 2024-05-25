@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TopUp.Domain;
 
 namespace TopUp.Application;
-public class TopUpBeneficiaryHandler(IApplicationDbContext dbContext, BankAccountServiceHttpClient bankAccountServiceHttpClient)
+public class TopUpBeneficiaryHandler(IApplicationDbContext dbContext, IBankAccountServiceHttpClient bankAccountServiceHttpClient)
     : ICommandHandler<TopUpBeneficiaryCommand, TopUpBeneficiaryResult>
 {
     public async Task<TopUpBeneficiaryResult> Handle(TopUpBeneficiaryCommand command, CancellationToken cancellationToken)

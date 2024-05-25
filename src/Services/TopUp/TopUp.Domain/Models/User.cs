@@ -10,13 +10,13 @@ public class User : Aggregate<UserId>
     private readonly List<Beneficiary> _beneficiaries = [];
     public IReadOnlyList<Beneficiary> Beneficiaries => _beneficiaries.AsReadOnly();
 
-    public static User Create(UserId id, string nickname, string number, AccountNumber accountNumber, bool verified)
+    public static User Create(UserId id, string nickname, string phoneNumber, AccountNumber accountNumber, bool verified)
     {
         var user = new User
         {
             Id = id,
             Nickname = UserNickname.From(nickname),
-            Phone = Phone.From(number),
+            Phone = Phone.From(phoneNumber),
             AccountNumber = accountNumber,
             Verified = verified
         };

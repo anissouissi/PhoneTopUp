@@ -19,6 +19,7 @@ public static class DependencyInjection
             config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
+        services.AddSingleton<IBankAccountServiceHttpClient, BankAccountServiceHttpClient>();
         services.AddHttpClient<BankAccountServiceHttpClient>();
 
         services.AddValidatorsFromAssembly(assembly);
